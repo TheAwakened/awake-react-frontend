@@ -3,7 +3,7 @@ import InputField from '../elements/InputField'
 import Button from '../elements/Button'
 import { ENDPOINT } from '../constant'
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -22,12 +22,12 @@ class LoginForm extends Component {
   handleSubmit(e) {
     e.preventDefault()
     const body = JSON.stringify({
-      'auth': this.state
+      'user': this.state
     })
 
     console.log(body)
 
-    fetch(ENDPOINT + 'authenticate', {
+    fetch(ENDPOINT + 'users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -46,13 +46,13 @@ class LoginForm extends Component {
   render() {
     return (
       <div className="box">
-        <h1 className="title">Login</h1>
+        <h1 className="title">Sign Up</h1>
         <InputField onChange={this.handleChange} value={this.state.username} name="username" label={'Username'} />
         <InputField onChange={this.handleChange} value={this.state.password} name="password" label={'Password'} type='password' />
-        <Button onClick={(e) => this.handleSubmit(e)} title="Login" />
+        <Button onClick={(e) => this.handleSubmit(e)} title="Sign Up" />
       </div>
     )
   }
 }
 
-export default LoginForm
+export default SignUpForm
