@@ -25,8 +25,6 @@ class LoginForm extends Component {
       'auth': this.state
     })
 
-    console.log(body)
-
     fetch(ENDPOINT + 'authenticate', {
       method: 'POST',
       headers: {
@@ -35,9 +33,17 @@ class LoginForm extends Component {
       },
       body
     }).then(res => {
-      return res.json()
-    }).then(data => {
-      console.log(data)
+      console.log(res)
+      if (res.ok) {
+        return res.json()
+      }
+      const message = 'Invalid email/password.'
+      const type = 'is-danger'
+      this.props.displayMessage(message, type)
+    }).then(({message, jwt}) => {
+      const type = 'is-success'
+      this.props.displayMessage(message, type)
+      this.props.onLogin(jwt)
     }).catch(err => {
       console.log(err)
     })
