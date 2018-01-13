@@ -35,9 +35,14 @@ class SignUpForm extends Component {
       },
       body
     }).then(res => {
-      return res.json()
-    }).then(data => {
-      console.log(data)
+      if (res.ok) {
+        return res.json()
+      }
+    }).then(({ message }) => {
+      const type = 'is-success'
+      this.props.displayMessage(message, type)
+
+      this.props.history.push('/sign_in')
     }).catch(err => {
       console.log(err)
     })

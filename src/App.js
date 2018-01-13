@@ -10,7 +10,7 @@ import Main from './components/Main'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { message: undefined }
+    this.state = { message: undefined, messageType: 'is-danger' }
   }
 
   displayMessage(message, type) {
@@ -30,12 +30,12 @@ class App extends Component {
         <div className="hero is-fullheight">
           <div className="hero-body">
             <div className="column is-6 is-offset-3">
-              <Route path="/sign_in" render={() => 
-                <LoginForm displayMessage={this.displayMessage.bind(this)}
+              <Route path="/sign_in" render={props => 
+                <LoginForm displayMessage={this.displayMessage.bind(this)}  {...props} 
                 />} 
               />
-              <Route path="/sign_up" render={() => 
-                <SignUpForm displayMessage={this.displayMessage.bind(this)}
+              <Route path="/sign_up" render={props => 
+                <SignUpForm displayMessage={this.displayMessage.bind(this)} {...props}
                 />} 
               />
             </div>
