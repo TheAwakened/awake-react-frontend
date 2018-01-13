@@ -44,8 +44,9 @@ class LoginForm extends Component {
     }).then(({message, jwt}) => {
       const type = 'is-success'
       this.props.displayMessage(message, type)
-      
+
       localStorage.setItem('authToken', jwt)
+      this.props.history.push('/')
     }).catch(err => {
       console.log(err)
     })

@@ -7,3 +7,29 @@ body {
 .App {
   height: 100vh;
 }
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.notification.hide, .fade-exit.fade-exit-active.hide {
+  padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}
+
+.notification.hide {
+  padding: 0;
+}

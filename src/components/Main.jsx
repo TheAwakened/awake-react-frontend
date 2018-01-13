@@ -12,6 +12,9 @@ class Main extends Component {
   logout () {
     localStorage.removeItem('authToken')
     this.setState({jwt: undefined})
+    this.props.displayMessage(
+      'Sign out succesfully', 'is-info'
+    )
   }
 
   render() {
@@ -27,7 +30,7 @@ class Main extends Component {
     )
 
     const logout = (
-      <button onClick={this.logout} class="button is-danger">Logout</button>
+      <button onClick={this.logout.bind(this)} className="button is-danger">Logout</button>
     )
 
     return (
