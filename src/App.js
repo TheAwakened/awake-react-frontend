@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { instanceOf } from 'prop-types'
 import { Route } from 'react-router-dom'
-import { withCookies, Cookies } from 'react-cookie'
 
 import 'bulma/css/bulma.css'
 
@@ -10,33 +8,20 @@ import LoginForm from './components/LoginForm'
 import Main from './components/Main'
 
 class App extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  }
-
-  componentWillMount() {
-    const { cookies } = this.props
-
-    this.setState({
-      auth_token: cookies.get('auth_token') || undefined
-    })
+  constructor(props) {
+    super(props)
+    this.state = { message: undefined }
   }
 
   displayMessage(message, type) {
     this.setState({message, messageType: type})
   }
 
-  updateJWTToken(jwt) {
-    const { cookies } = this.props
-    cookies.set('jwt', jwt, { path: '/' })
-    this.setState({ jwt })
-  }
-
   render() {
     return (
       <div className="App">
         {this.state.message !== undefined &&
-          <div className={"notification is-overlay " + this.state.messageType}>
+          <div className={'notification is-overlay ' + this.state.messageType}>
             {this.state.message}
           </div>
         }
@@ -46,11 +31,13 @@ class App extends Component {
           <div className="hero-body">
             <div className="column is-6 is-offset-3">
               <Route path="/sign_in" render={() => 
-                <LoginForm onLogin={this.updateJWTToken.bind(this)}
-                  displayMessage={this.displayMessage.bind(this)}
+                <LoginForm displayMessage={this.displayMessage.bind(this)}
                 />} 
               />
-              <Route path="/sign_up" component={SignUpForm} />
+              <Route path="/sign_up" render={() => 
+                <SignUpForm displayMessage={this.displayMessage.bind(this)}
+                />} 
+              />
             </div>
           </div>
         </div>
@@ -59,4 +46,4 @@ class App extends Component {
   }
 }
 
-export default withCookies(App)
+export default App

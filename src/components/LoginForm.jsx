@@ -40,10 +40,12 @@ class LoginForm extends Component {
       const message = 'Invalid email/password.'
       const type = 'is-danger'
       this.props.displayMessage(message, type)
+
     }).then(({message, jwt}) => {
       const type = 'is-success'
       this.props.displayMessage(message, type)
-      this.props.onLogin(jwt)
+      
+      localStorage.setItem('authToken', jwt)
     }).catch(err => {
       console.log(err)
     })
